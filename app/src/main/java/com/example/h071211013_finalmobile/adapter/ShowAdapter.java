@@ -17,17 +17,17 @@ import com.example.h071211013_finalmobile.R;
 
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
+public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
     private List<MovieResponse> data;
     @NonNull
     @Override
-    public MovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ShowAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_show, parent, false);
-        return new ViewHolder(view);
+        return new ShowAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ShowAdapter.ViewHolder holder, int position) {
         MovieResponse movieResponse = data.get(position);
         holder.setData(movieResponse);
     }

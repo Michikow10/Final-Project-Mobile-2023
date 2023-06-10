@@ -9,9 +9,10 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("users")
-    Call<DataResponse> getUser(@Query("per_page") String per_page);
+    @GET("movie/popular")
+    Call<DataResponse> getPopularMovies(@Query("api_key") String api_key);
 
-    @GET("users/{id}")
-    Call<MovieResponse> getSingleUser(@Path("id") int id);
+    @GET("tv/popular")
+    Call<MovieResponse> getPopularShows(@Query("api_key") String api_key);
+
 }
