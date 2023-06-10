@@ -12,6 +12,9 @@
         android:theme="@style/Theme.H071211013FinalMobile"
         tools:targetApi="31">
         <activity
+            android:name=".DetailItem"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
