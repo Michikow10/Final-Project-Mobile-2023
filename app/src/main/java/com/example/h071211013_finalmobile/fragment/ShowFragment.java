@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class ShowFragment extends Fragment {
 
-    private static ArrayList<MovieResponse> movieResponseArrayList;
+    private static ArrayList<MovieResponse> movieResponseList;
 
     public ShowFragment() {
     }
@@ -38,10 +38,10 @@ public class ShowFragment extends Fragment {
         ProgressBar progressBar = view.findViewById(R.id.load);
         RecyclerView filmRecyclerView = view.findViewById(R.id.rv_show);
 
-        movieResponseArrayList = MovieResponse.getId();
-        MovieAdapter movieAdapter = new MovieAdapter(movieResponseArrayList, getActivity());
+        movieResponseList = MovieResponse.getId();
+        MovieAdapter movieAdapter = new MovieAdapter(movieResponseList, getActivity());
 
-        if (movieResponseArrayList != null && !movieResponseArrayList.isEmpty()) {
+        if (movieResponseList != null && !movieResponseList.isEmpty()) {
             progressBar.setVisibility(View.GONE);
             filmRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
             filmRecyclerView.setAdapter(movieAdapter);
