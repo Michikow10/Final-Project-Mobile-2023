@@ -33,6 +33,8 @@ public class DetailItem extends AppCompatActivity {
         tanggal = findViewById(R.id.tv_tanggal);
         rating = findViewById(R.id.tv_rating);
         sinopsis = findViewById(R.id.tv_sinopsis);
+        poster = findViewById(R.id.iv_poster);
+        icon = findViewById(R.id.iv_icon);
 
     }
 

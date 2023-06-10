@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.h071211013_finalmobile.DetailItem;
-import com.example.h071211013_finalmobile.MovieResponse;
+import com.example.h071211013_finalmobile.response.MovieResponse;
 import com.example.h071211013_finalmobile.R;
 
 import java.util.List;
@@ -51,7 +51,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
             judul.setText(movieResponse.getTitle());
             tahun.setText(movieResponse.getDate());
             Glide.with(itemView.getContext())
-                    .load(movieResponse.getAvatarUrl()).into(poster);
+                    .load(movieResponse.getPoster()).into(poster);
 
             itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(itemView.getContext(), DetailItem.class);

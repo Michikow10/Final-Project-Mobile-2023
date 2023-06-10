@@ -1,4 +1,4 @@
-package com.example.h071211013_finalmobile;
+package com.example.h071211013_finalmobile.response;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -12,14 +12,17 @@ public class MovieResponse {
     @SerializedName("date")
     private String date;
 
-    @SerializedName("year")
-    private String year;
+    @SerializedName("vote")
+    private String vote;
 
     @SerializedName("rating")
     private String rate;
 
-    @SerializedName("avatar")
-    private String avatarUrl;
+    @SerializedName("overview")
+    private String overview;
+
+    @SerializedName("poster")
+    private String poster;
 
     public int getId() {
         return id;
@@ -30,14 +33,14 @@ public class MovieResponse {
     public String getDate() {
         return date;
     }
-    public String getYear() {
-        return year;
+    public String getVote() {
+        return vote;
     }
     public String getRate() {
         return rate;
     }
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getPoster() {
+        return poster;
     }
 
     @SerializedName("data")
