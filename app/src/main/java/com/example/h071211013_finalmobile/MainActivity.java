@@ -1,6 +1,7 @@
 package com.example.h071211013_finalmobile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
@@ -41,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showFragment(MovieFragment movieFragment, String movies) {
+    public void showFragment(Fragment fragment, String title) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
+        if (currentFragment == null ||
+                !currentFragment.getClass().getSimpleName().equals(fragment.getClass().getSimpleName())) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            header.setText(title);
+        }
     }
 }

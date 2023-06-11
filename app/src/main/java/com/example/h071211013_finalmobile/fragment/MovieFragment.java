@@ -38,13 +38,5 @@ public class MovieFragment extends Fragment {
         ProgressBar progressBar = view.findViewById(R.id.load);
         RecyclerView filmRecyclerView = view.findViewById(R.id.rv_film);
 
-        movieResponseArrayList = MovieResponse.getId();
-        MovieAdapter movieAdapter = new MovieAdapter(movieResponseArrayList, getActivity());
-
-        if (movieResponseArrayList != null && !movieResponseArrayList.isEmpty()) {
-            progressBar.setVisibility(View.GONE);
-            filmRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-            filmRecyclerView.setAdapter(movieAdapter);
-        }
     }
 }
