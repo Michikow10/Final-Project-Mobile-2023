@@ -73,12 +73,13 @@ public class DetailItemShow extends AppCompatActivity {
                             String synopsis = getIntent().getStringExtra("synopsis");
                             String backdropPath = getIntent().getStringExtra("backdrop");
                             String poster = getIntent().getStringExtra("poster");
-
+                            
                             sinopsis.setText(synopsis);
 
                             Glide.with(DetailItemShow.this)
                                     .load("https://image.tmdb.org/t/p/w500" + backdropPath)
                                     .into(backdrop);
+
                         }
                     } else {
                         Toast.makeText(DetailItemShow.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();

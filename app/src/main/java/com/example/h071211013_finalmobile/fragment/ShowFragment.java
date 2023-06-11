@@ -45,7 +45,7 @@ public class ShowFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ProgressBar progressBar = view.findViewById(R.id.load);
-        RecyclerView showRecyclerView = view.findViewById(R.id.rv_film);
+        RecyclerView showRecyclerView = view.findViewById(R.id.rv_show);
         showRecyclerView.setHasFixedSize(true);
         showRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
 
@@ -60,6 +60,7 @@ public class ShowFragment extends Fragment {
                         showResponseList = (List<ShowResponse>) response.body().getData();
                         ShowAdapter showAdapter = new ShowAdapter(showResponseList);
                         showRecyclerView.setAdapter(showAdapter);
+                        progressBar.setVisibility(View.GONE);
                         hideLoading();
                     }
                 }else{

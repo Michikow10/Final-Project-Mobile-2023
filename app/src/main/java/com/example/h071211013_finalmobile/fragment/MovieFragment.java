@@ -40,7 +40,7 @@ public class MovieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        ProgressBar progressBar = view.findViewById(R.id.load);
+        ProgressBar progressBar = view.findViewById(R.id.load);
         RecyclerView filmRecyclerView = view.findViewById(R.id.rv_film);
             filmRecyclerView.setHasFixedSize(true);
             filmRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
@@ -56,6 +56,7 @@ public class MovieFragment extends Fragment {
                         movieResponseList = (List<MovieResponse>) response.body().getData();
                         MovieAdapter movieAdapter = new MovieAdapter(movieResponseList);
                         filmRecyclerView.setAdapter(movieAdapter);
+                        progressBar.setVisibility(View.GONE);
                                 hideLoading();
                     }
                 }else{

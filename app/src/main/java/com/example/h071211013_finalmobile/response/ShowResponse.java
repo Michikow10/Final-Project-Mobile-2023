@@ -14,17 +14,16 @@ public class ShowResponse {
     @SerializedName("first_air_date")
     private String date;
 
-    @SerializedName("vote")
+    @SerializedName("vote_average")
     private String vote;
-
-    @SerializedName("rating")
-    private String rate;
 
     @SerializedName("overview")
     private String overview;
 
-    @SerializedName("poster")
+    @SerializedName("poster_path")
     private String poster;
+    @SerializedName("backdrop_path")
+    private String backdrop;
 
     public int getId() {
         return id;
@@ -38,18 +37,18 @@ public class ShowResponse {
     public String getVote() {
         return vote;
     }
-    public String getRate() {
-        return rate;
-    }
     public String getPoster() {
         return poster;
     }
+    public String getBackdrop() {
+        return backdrop;
+    }
 
-    @SerializedName("data")
-    private List<ShowResponse> data;
+    @SerializedName("results")
+    private List<ShowResponse> results;
 
     public List<ShowResponse> getData() {
-        return data;
+        return results;
     }
 
 }

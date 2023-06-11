@@ -23,7 +23,7 @@ import java.util.List;
 public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
     Context context;
     private List<ShowResponse> showResponseList;
-    public ShowAdapter(List<ShowResponse> movieResponseList) {
+    public ShowAdapter(List<ShowResponse> showResponseList) {
         this.context = context;
         this.showResponseList = showResponseList;
     }
@@ -36,6 +36,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ShowAdapter.ViewHolder holder, int position) {
+        Context context = holder.itemView.getContext();
         ShowResponse showResponse = showResponseList.get(position);
         holder.setData(showResponse);
     }
@@ -58,8 +59,8 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
         public void setData(ShowResponse showResponse) {
             judul.setText(showResponse.getTitle());
             tahun.setText(showResponse.getDate());
-            Glide.with(itemView.getContext())
-                    .load(showResponse.getPoster()).into(poster);
+            Glide.with(itemView.getContext()).load("https://image.tmdb.org/t/p/w500" + showResponse.getPoster())
+                    .into(poster);
 
             itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(itemView.getContext(), DetailItemShow.class);
