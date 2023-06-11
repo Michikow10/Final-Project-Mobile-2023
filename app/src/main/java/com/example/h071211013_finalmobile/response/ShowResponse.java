@@ -37,6 +37,9 @@ public class ShowResponse {
     public String getVote() {
         return vote;
     }
+    public String getOverview() {
+        return overview;
+    }
     public String getPoster() {
         return poster;
     }

@@ -1,5 +1,7 @@
 package com.example.h071211013_finalmobile;
 
+import static com.example.h071211013_finalmobile.DetailItemShow.KEY_SHOW;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -24,9 +26,11 @@ import retrofit2.Response;
 
 public class DetailItemMovie extends AppCompatActivity {
     private static List<MovieResponse> movieResponseList;
-    public static final String EXTRA_MOVIE ="extra_movie" ;
+    public static final String KEY_MOVIE ="extra_movie" ;
     ImageView backdrop, btnback, btnfav, poster, icon;
     TextView judul, tanggal, rating, sinopsis;
+
+    private MovieResponse movieResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,21 @@ public class DetailItemMovie extends AppCompatActivity {
         poster = findViewById(R.id.iv_poster);
         icon = findViewById(R.id.iv_icon);
 
+        movieResponse = getIntent().getParcelableExtra(KEY_MOVIE);
+
+
+        Glide.with(this)
+                .load("https://image.tmdb.org/t/p/w500" + backdrop)
+                .into(backdrop);
+        Glide.with(this)
+                .load("https://image.tmdb.org/t/p/w500" + poster)
+                .into(poster);
+
+        judul.setText(movieResponse.getTitle());
+        tanggal.setText(movieResponse.getDate());
+        rating.setText(String.valueOf(movieResponse.getVote()));
+        sinopsis.setText(movieResponse.getOverview());
+
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,51 +69,6 @@ public class DetailItemMovie extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        getDataApi();
     }
-
-    private void getDataApi() {
-        if (isNetworkAvailable()) {
-            Intent intent = getIntent();
-            String movieId = intent.getStringExtra("movie_id");
-            Toast.makeText(this, movieId, Toast.LENGTH_SHORT).show();
-            Call<MovieResponse> call = ApiConfig.getApiService().getMovies(ApiConfig.getApiKey());
-            call.enqueue(new Callback<MovieResponse>() {
-                @Override
-                public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(DetailItemMovie.this, "test", Toast.LENGTH_SHORT).show();
-                        if (response.body() != null) {
-                            movieResponseList = (List<MovieResponse>) response.body().getData();
-                            
-                            String judul = getIntent().getStringExtra("judul");
-                            String rating = getIntent().getStringExtra("rating");
-                            String synopsis = getIntent().getStringExtra("synopsis");
-                            String backdropPath = getIntent().getStringExtra("backdrop");
-                            String poster = getIntent().getStringExtra("poster");
-
-                            sinopsis.setText(synopsis);
-
-                            Glide.with(DetailItemMovie.this)
-                                    .load("https://image.tmdb.org/t/p/w500" + backdropPath)
-                                    .into(backdrop);
-                        }
-                    } else {
-                        Toast.makeText(DetailItemMovie.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<MovieResponse> call, Throwable t) {
-                    Toast.makeText(DetailItemMovie.this, "Unable to fetch data!", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
-    }
+    
 }

@@ -25,9 +25,11 @@ import retrofit2.Response;
 
 public class DetailItemShow extends AppCompatActivity {
     private static List<ShowResponse> showResponseList;
-    public static final String EXTRA_SHOW ="extra_show" ;
+    public static final String KEY_SHOW ="key_show" ;
     ImageView backdrop, btnback, btnfav, poster, icon;
     TextView judul, tanggal, rating, sinopsis;
+
+    private ShowResponse showResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,20 @@ public class DetailItemShow extends AppCompatActivity {
         poster = findViewById(R.id.iv_poster);
         icon = findViewById(R.id.iv_icon);
 
+        showResponse = getIntent().getParcelableExtra(KEY_SHOW);
+
+        Glide.with(this)
+                .load("https://image.tmdb.org/t/p/w500" + backdrop)
+                .into(backdrop);
+        Glide.with(this)
+                .load("https://image.tmdb.org/t/p/w500" + poster)
+                .into(poster);
+
+        judul.setText(showResponse.getTitle());
+        tanggal.setText(showResponse.getDate());
+        rating.setText(String.valueOf(showResponse.getVote()));
+        sinopsis.setText(showResponse.getOverview());
+
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,54 +67,7 @@ public class DetailItemShow extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        getDataApi();
     }
 
-    private void getDataApi() {
-        if (isNetworkAvailable()) {
-            Intent intent = getIntent();
-            String movieId = intent.getStringExtra("movie_id");
-            Toast.makeText(this, movieId, Toast.LENGTH_SHORT).show();
-            Call<ShowResponse> call = ApiConfig.getApiService().getShows(ApiConfig.getApiKey());
-            call.enqueue(new Callback<ShowResponse>() {
-                @Override
-                public void onResponse(Call<ShowResponse> call, Response<ShowResponse> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(DetailItemShow.this, "test", Toast.LENGTH_SHORT).show();
-                        if (response.body() != null) {
-                            showResponseList = (List<ShowResponse>) response.body().getData();
-
-                            String judul = getIntent().getStringExtra("judul");
-                            String rating = getIntent().getStringExtra("rating");
-                            String synopsis = getIntent().getStringExtra("synopsis");
-                            String backdropPath = getIntent().getStringExtra("backdrop");
-                            String poster = getIntent().getStringExtra("poster");
-                            
-                            sinopsis.setText(synopsis);
-
-                            Glide.with(DetailItemShow.this)
-                                    .load("https://image.tmdb.org/t/p/w500" + backdropPath)
-                                    .into(backdrop);
-
-                        }
-                    } else {
-                        Toast.makeText(DetailItemShow.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ShowResponse> call, Throwable t) {
-                    Toast.makeText(DetailItemShow.this, "Unable to fetch data!", Toast.LENGTH_SHORT).show();
-                }
-
-            });
-        }
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
-    }
 }
 

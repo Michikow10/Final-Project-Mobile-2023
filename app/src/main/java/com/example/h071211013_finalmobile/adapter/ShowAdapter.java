@@ -2,6 +2,7 @@ package com.example.h071211013_finalmobile.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,18 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ShowAdapter.ViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
         ShowResponse showResponse = showResponseList.get(position);
-        holder.setData(showResponse);
+
+        Glide.with(context)
+                .load("https://image.tmdb.org/t/p/w500" + showResponse.getPoster())
+                .into(holder.poster);
+        holder.judul.setText(showResponse.getTitle());
+        holder.tahun.setText(showResponse.getDate().substring(0, 4));
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, DetailItemShow.class);
+            intent.putExtra(DetailItemShow.KEY_SHOW, (Parcelable) showResponse);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -54,19 +66,6 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
             poster = itemView.findViewById(R.id.iv_poster);
             judul = itemView.findViewById(R.id.tv_judul);
             tahun = itemView.findViewById(R.id.tv_tahun);
-        }
-
-        public void setData(ShowResponse showResponse) {
-            judul.setText(showResponse.getTitle());
-            tahun.setText(showResponse.getDate());
-            Glide.with(itemView.getContext()).load("https://image.tmdb.org/t/p/w500" + showResponse.getPoster())
-                    .into(poster);
-
-            itemView.setOnClickListener(view -> {
-                Intent intent = new Intent(itemView.getContext(), DetailItemShow.class);
-                intent.putExtra(DetailItemShow.EXTRA_SHOW,showResponse.getId());
-                itemView.getContext().startActivity(intent);
-            });
         }
     }
 }
