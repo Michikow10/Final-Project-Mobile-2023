@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -39,24 +40,23 @@ public class MovieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ProgressBar progressBar = view.findViewById(R.id.load);
+//        ProgressBar progressBar = view.findViewById(R.id.load);
         RecyclerView filmRecyclerView = view.findViewById(R.id.rv_film);
+            filmRecyclerView.setHasFixedSize(true);
+            filmRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
 
-        MovieAdapter movieAdapter = new MovieAdapter(movieResponseList, getActivity());
+        MovieAdapter movieAdapter = new MovieAdapter(movieResponseList);
 
-        consumeAPI();
-    }
-
-    public void consumeAPI() {
         showLoading();
-        Call<MovieResponse> client = ApiConfig.getApiService().getMovies();
+        Call<MovieResponse> client = ApiConfig.getApiService().getMovies(ApiConfig.getApiKey());
         client.enqueue(new Callback<MovieResponse>() {
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (response.isSuccessful()){
                     if (response != null) {
                         movieResponseList = (List<MovieResponse>) response.body().getData();
-                        
-                        hideLoading();
+                        MovieAdapter movieAdapter = new MovieAdapter(movieResponseList);
+                        filmRecyclerView.setAdapter(movieAdapter);
+                                hideLoading();
                     }
                 }else{
                     if(response.body() !=null){

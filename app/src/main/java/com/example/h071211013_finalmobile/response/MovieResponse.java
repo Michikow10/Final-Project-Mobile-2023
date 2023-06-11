@@ -2,6 +2,8 @@ package com.example.h071211013_finalmobile.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class MovieResponse {
     @SerializedName("id")
     private int id;
@@ -9,20 +11,21 @@ public class MovieResponse {
     @SerializedName("title")
     private String title;
 
-    @SerializedName("date")
+    @SerializedName("release_date")
     private String date;
 
-    @SerializedName("vote")
+    @SerializedName("vote_average")
     private String vote;
-
-    @SerializedName("rating")
-    private String rate;
 
     @SerializedName("overview")
     private String overview;
 
-    @SerializedName("poster")
+    @SerializedName("poster_path")
     private String poster;
+
+    @SerializedName("backdrop_path")
+    private String backdrop;
+
 
     public int getId() {
         return id;
@@ -36,18 +39,18 @@ public class MovieResponse {
     public String getVote() {
         return vote;
     }
-    public String getRate() {
-        return rate;
-    }
     public String getPoster() {
         return poster;
     }
+    public String getBackdrop() {
+        return backdrop;
+    }
 
-    @SerializedName("data")
-    private MovieResponse data;
+    @SerializedName("results")
+    private List<MovieResponse> results;
 
-    public MovieResponse getData() {
-        return data;
+    public List<MovieResponse> getData() {
+        return results;
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.h071211013_finalmobile.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.h071211013_finalmobile.DetailItem;
-import com.example.h071211013_finalmobile.response.MovieResponse;
+import com.example.h071211013_finalmobile.DetailItemMovie;
+import com.example.h071211013_finalmobile.DetailItemShow;
 import com.example.h071211013_finalmobile.R;
+import com.example.h071211013_finalmobile.response.MovieResponse;
 import com.example.h071211013_finalmobile.response.ShowResponse;
 
 import java.util.List;
 
 public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
-    private List<ShowResponse> data;
+    Context context;
+    private List<ShowResponse> showResponseList;
+    public ShowAdapter(List<ShowResponse> movieResponseList) {
+        this.context = context;
+        this.showResponseList = showResponseList;
+    }
     @NonNull
     @Override
     public ShowAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,13 +36,13 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ShowAdapter.ViewHolder holder, int position) {
-        ShowResponse showResponse = data.get(position);
+        ShowResponse showResponse = showResponseList.get(position);
         holder.setData(showResponse);
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return showResponseList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -55,8 +62,8 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
                     .load(showResponse.getPoster()).into(poster);
 
             itemView.setOnClickListener(view -> {
-                Intent intent = new Intent(itemView.getContext(), DetailItem.class);
-                intent.putExtra(DetailItem.EXTRA_MOVIE,showResponse.getId());
+                Intent intent = new Intent(itemView.getContext(), DetailItemShow.class);
+                intent.putExtra(DetailItemShow.EXTRA_SHOW,showResponse.getId());
                 itemView.getContext().startActivity(intent);
             });
         }

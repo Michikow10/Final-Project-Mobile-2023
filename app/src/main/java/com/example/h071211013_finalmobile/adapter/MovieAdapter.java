@@ -1,5 +1,6 @@
 package com.example.h071211013_finalmobile.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,20 +9,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.h071211013_finalmobile.DetailItem;
+import com.example.h071211013_finalmobile.DetailItemMovie;
 import com.example.h071211013_finalmobile.response.MovieResponse;
 import com.example.h071211013_finalmobile.R;
 
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
+    Context context;
     private List<MovieResponse> movieResponseList;
 
-    public MovieAdapter(List<MovieResponse> movieResponseList, FragmentActivity activity) {
+    public MovieAdapter(List<MovieResponse> movieResponseList) {
+        this.context = context;
         this.movieResponseList = movieResponseList;
     }
 
@@ -34,9 +36,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.ViewHolder holder, int position) {
+        Context context = holder.itemView.getContext();
         MovieResponse movieResponse = movieResponseList.get(position);
         holder.setData(movieResponse);
-
     }
 
     @Override
@@ -57,12 +59,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         public void setData(MovieResponse movieResponse) {
             judul.setText(movieResponse.getTitle());
             tahun.setText(movieResponse.getDate());
-            Glide.with(itemView.getContext())
-                    .load(movieResponse.getPoster()).into(poster);
+            Glide.with(itemView.getContext()).load("https://image.tmdb.org/t/p/w500" + movieResponse.getPoster())
+                    .into(poster);
 
             itemView.setOnClickListener(view -> {
-                Intent intent = new Intent(itemView.getContext(), DetailItem.class);
-                intent.putExtra(DetailItem.EXTRA_MOVIE,movieResponse.getId());
+                Intent intent = new Intent(itemView.getContext(), DetailItemMovie.class);
+                intent.putExtra(DetailItemMovie.EXTRA_MOVIE,movieResponse.getId());
                 itemView.getContext().startActivity(intent);
             });
         }

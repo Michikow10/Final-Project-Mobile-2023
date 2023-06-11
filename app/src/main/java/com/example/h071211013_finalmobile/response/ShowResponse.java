@@ -8,10 +8,10 @@ public class ShowResponse {
     @SerializedName("id")
     private int id;
 
-    @SerializedName("title")
+    @SerializedName("name")
     private String title;
 
-    @SerializedName("date")
+    @SerializedName("first_air_date")
     private String date;
 
     @SerializedName("vote")
@@ -46,9 +46,9 @@ public class ShowResponse {
     }
 
     @SerializedName("data")
-    private ShowResponse data;
+    private List<ShowResponse> data;
 
-    public ShowResponse getData() {
+    public List<ShowResponse> getData() {
         return data;
     }
 
