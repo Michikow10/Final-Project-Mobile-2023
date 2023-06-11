@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         btnShow.setOnClickListener(view -> showFragment(new ShowFragment(), "TV Shows"));
 
         btnFav.setOnClickListener(view -> showFragment(new FavoriteFragment(), "Favorites"));
-
     }
 
     public void showFragment(Fragment fragment, String title) {

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,7 +19,12 @@ import com.example.h071211013_finalmobile.R;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
-    private List<MovieResponse> data;
+    private List<MovieResponse> movieResponseList;
+
+    public MovieAdapter(List<MovieResponse> movieResponseList, FragmentActivity activity) {
+        this.movieResponseList = movieResponseList;
+    }
+
     @NonNull
     @Override
     public MovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -28,13 +34,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.ViewHolder holder, int position) {
-        MovieResponse movieResponse = data.get(position);
+        MovieResponse movieResponse = movieResponseList.get(position);
         holder.setData(movieResponse);
+
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return movieResponseList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,6 +1,7 @@
 package com.example.h071211013_finalmobile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.h071211013_finalmobile.api.ApiConfig;
+import com.example.h071211013_finalmobile.fragment.FavoriteFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -16,12 +16,14 @@ import android.widget.ProgressBar;
 import com.example.h071211013_finalmobile.response.MovieResponse;
 import com.example.h071211013_finalmobile.R;
 import com.example.h071211013_finalmobile.adapter.MovieAdapter;
+import com.example.h071211013_finalmobile.response.ShowResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShowFragment extends Fragment {
 
-    private static ArrayList<MovieResponse> movieResponseList;
+    private static List<ShowResponse> movieResponseList;
 
     public ShowFragment() {
     }

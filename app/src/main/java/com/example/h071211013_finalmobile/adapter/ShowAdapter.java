@@ -14,11 +14,12 @@ import com.bumptech.glide.Glide;
 import com.example.h071211013_finalmobile.DetailItem;
 import com.example.h071211013_finalmobile.response.MovieResponse;
 import com.example.h071211013_finalmobile.R;
+import com.example.h071211013_finalmobile.response.ShowResponse;
 
 import java.util.List;
 
 public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
-    private List<MovieResponse> data;
+    private List<ShowResponse> data;
     @NonNull
     @Override
     public ShowAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -28,8 +29,8 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ShowAdapter.ViewHolder holder, int position) {
-        MovieResponse movieResponse = data.get(position);
-        holder.setData(movieResponse);
+        ShowResponse showResponse = data.get(position);
+        holder.setData(showResponse);
     }
 
     @Override
@@ -47,15 +48,15 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
             tahun = itemView.findViewById(R.id.tv_tahun);
         }
 
-        public void setData(MovieResponse movieResponse) {
-            judul.setText(movieResponse.getTitle());
-            tahun.setText(movieResponse.getDate());
+        public void setData(ShowResponse showResponse) {
+            judul.setText(showResponse.getTitle());
+            tahun.setText(showResponse.getDate());
             Glide.with(itemView.getContext())
-                    .load(movieResponse.getPoster()).into(poster);
+                    .load(showResponse.getPoster()).into(poster);
 
             itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(itemView.getContext(), DetailItem.class);
-                intent.putExtra(DetailItem.EXTRA_MOVIE,movieResponse.getId());
+                intent.putExtra(DetailItem.EXTRA_MOVIE,showResponse.getId());
                 itemView.getContext().startActivity(intent);
             });
         }

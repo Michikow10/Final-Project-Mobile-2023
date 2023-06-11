@@ -8,10 +8,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("movie/popular")
-    Call<MovieResponse> getPopularMovies(@Query("api_key") String api_key);
+    @GET("movie/popular?")
+    Call<MovieResponse> getMovies();
 
-    @GET("tv/popular")
-    Call<ShowResponse> getPopularShows(@Query("api_key") String api_key);
+    @GET("tv/popular?")
+    Call<ShowResponse> getShows(@Query("api_key") String api_key);
 
 }
